@@ -15,7 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.coffeebeans.mywallet.R;
-import com.coffeebeans.mywallet.data.WalletTransaction;
+import com.coffeebeans.mywallet.TransactionViewModel;
+import com.coffeebeans.mywallet.data.Transaction;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         rvTransaction.setItemAnimator(new DefaultItemAnimator());
 
         viewModel = createViewModel();
-        viewModel.getWalletTransactions().observe(this, new WalletTransactionObserver());
+        viewModel.getTransactions().observe(this, new WalletTransactionObserver());
         viewModel.loadTransactionLocal();
     }
 
@@ -94,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
         return ViewModelProviders.of(this).get(TransactionViewModel.class);
     }
 
-    private class WalletTransactionObserver implements Observer<List<WalletTransaction>> {
+    private class WalletTransactionObserver implements Observer<List<Transaction>> {
 
         @Override
-        public void onChanged(@Nullable List<WalletTransaction> walletTransactions) {
+        public void onChanged(@Nullable List<Transaction> walletTransactions) {
             if (walletTransactions == null) return;
 
             adapter = new TransactionAdapter(walletTransactions);
