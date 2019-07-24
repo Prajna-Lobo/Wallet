@@ -7,29 +7,37 @@ import com.coffeebeans.mywallet.data.WalletTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionViewModel extends ViewModel {
-    private MutableLiveData<List<WalletTransaction>> walletTransactionList;
+    private MutableLiveData<List<WalletTransaction>> data;
+    private List<WalletTransaction> walletTransactions;
 
     public TransactionViewModel() {
-        this.walletTransactionList = new MutableLiveData<>();
+        this.data = new MutableLiveData<>();
     }
 
     MutableLiveData<List<WalletTransaction>> getWalletTransactions() {
-        return walletTransactionList;
+        return data;
     }
 
     void loadTransactionLocal() {
 
-        List<WalletTransaction> movies = new ArrayList<>();
-        movies.add(new WalletTransaction(1, "24-07-2019", "1,00,000", "description1", "Credit"));
-        movies.add(new WalletTransaction(2, "24-07-2019", "100", "description2", "Debit"));
-        movies.add(new WalletTransaction(3, "24-07-2019", "200", "description3", "Credit"));
-        movies.add(new WalletTransaction(4, "24-07-2019", "400", "description4", "Debit"));
-        setMovies(movies);
+        walletTransactions = new ArrayList<>();
+        walletTransactions.add(new WalletTransaction(1, "24-07-2019", "1,00,000", "description1", "Credit"));
+        walletTransactions.add(new WalletTransaction(2, "24-07-2019", "100", "description2", "Debit"));
+        walletTransactions.add(new WalletTransaction(3, "24-07-2019", "200", "description3", "Credit"));
+        walletTransactions.add(new WalletTransaction(4, "24-07-2019", "400", "description4", "Debit"));
+        data.postValue(walletTransactions);
     }
 
-    private void setMovies(List<WalletTransaction> walletTransactions) {
-        walletTransactionList.postValue(walletTransactions);
+    void filterByDescription(String filterText) {
+
+
+        List<WalletTransaction> filteredTransaction = walletTransactions.stream()
+                .filter(walletTransaction -> walletTransaction.getDescription().toLowerCase().contains(filterText.toLowerCase()))
+                .collect(Collectors.toList());
+
+        data.postValue(filteredTransaction);
     }
 }
