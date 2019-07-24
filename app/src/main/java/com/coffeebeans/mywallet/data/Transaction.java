@@ -1,5 +1,7 @@
 package com.coffeebeans.mywallet.data;
 
+import java.util.Objects;
+
 public class Transaction {
     private long id;
     private String date;
@@ -54,4 +56,13 @@ public class Transaction {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return id == that.id;
+    }
+
 }

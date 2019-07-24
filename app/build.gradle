@@ -24,6 +24,10 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    repositories {
+        maven { url 'https://maven.google.com' }
+    }
 }
 
 dependencies {
@@ -35,6 +39,10 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     testImplementation 'junit:junit:4.12'
+
+    // required if you want to use Mockito for unit tests
+    testImplementation 'org.mockito:mockito-core:2.21.0'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
