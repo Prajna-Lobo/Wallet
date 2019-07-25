@@ -1,13 +1,15 @@
 package com.coffeebeans.mywallet.data;
 
-public class WalletTransaction {
+import java.util.Objects;
+
+public class Transaction {
     private long id;
     private String date;
     private String amount;
     private String description;
     private String type;
 
-    public WalletTransaction(long id, String date, String amount, String description, String type) {
+    public Transaction(long id, String date, String amount, String description, String type) {
         this.id = id;
         this.date = date;
         this.amount = amount;
@@ -54,4 +56,13 @@ public class WalletTransaction {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return id == that.id;
+    }
+
 }

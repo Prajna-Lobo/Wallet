@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.coffeebeans.mywallet.R;
-import com.coffeebeans.mywallet.data.WalletTransaction;
+import com.coffeebeans.mywallet.data.Transaction;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
 
-    private List<WalletTransaction> walletTransactionList;
+    private List<Transaction> walletTransactionList;
 
-    TransactionAdapter(List<WalletTransaction> walletTransactions) {
+    TransactionAdapter(List<Transaction> walletTransactions) {
         this.walletTransactionList = walletTransactions;
     }
 
@@ -32,7 +32,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TransactionAdapter.TransactionViewHolder transactionViewHolder, int position) {
-        WalletTransaction walletTransaction = walletTransactionList.get(position);
+        Transaction walletTransaction = walletTransactionList.get(position);
 
         transactionViewHolder.setTvAmount(walletTransaction.getAmount());
         transactionViewHolder.setTvDate(walletTransaction.getDate());
