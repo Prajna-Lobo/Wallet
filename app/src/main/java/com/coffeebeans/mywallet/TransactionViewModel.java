@@ -1,10 +1,7 @@
 package com.coffeebeans.mywallet;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
 
 import com.coffeebeans.mywallet.data.Transaction;
 import com.coffeebeans.mywallet.domain.GetUserTransactionsUseCase;
@@ -12,14 +9,17 @@ import com.coffeebeans.mywallet.domain.GetUserTransactionsUseCase;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+
 public class TransactionViewModel extends ViewModel {
 
     private GetUserTransactionsUseCase transactionsUseCase;
     private MutableLiveData<List<Transaction>> data;
     private List<Transaction> transactions;
 
-    public TransactionViewModel() {
-        this.transactionsUseCase = new GetUserTransactionsUseCase();
+    @Inject
+    public TransactionViewModel(GetUserTransactionsUseCase transactionsUseCase) {
+        this.transactionsUseCase = transactionsUseCase;
         this.data = new MutableLiveData<>();
     }
 

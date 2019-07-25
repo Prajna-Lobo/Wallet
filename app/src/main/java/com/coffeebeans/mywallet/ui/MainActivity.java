@@ -14,11 +14,14 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.coffeebeans.mywallet.BaseApplication;
 import com.coffeebeans.mywallet.R;
 import com.coffeebeans.mywallet.TransactionViewModel;
 import com.coffeebeans.mywallet.data.Transaction;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,10 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
     TransactionAdapter adapter;
 
+    @Inject
+    TransactionViewModelFactory transactionViewModelFactory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ((BaseApplication) getApplication()).getActivityComponent().inject(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.filterByDescription(query);
                 return true;
             }
-
         });
 
         searchView.setOnCloseListener(() -> {
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TransactionViewModel createViewModel() {
-        return ViewModelProviders.of(this).get(TransactionViewModel.class);
+        return ViewModelProviders.of(this, transactionViewModelFactory).get(TransactionViewModel.class);
     }
 
     private class WalletTransactionObserver implements Observer<List<Transaction>> {

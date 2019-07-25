@@ -1,7 +1,5 @@
 package com.coffeebeans.mywallet.data;
 
-import java.util.Objects;
-
 public class Transaction {
     private long id;
     private String date;
