@@ -5,15 +5,14 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.coffeebeans.mywallet.R;
+import com.coffeebeans.mywallet.testHelper.RecyclerViewMatcher;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -41,15 +40,18 @@ public class MainActivityTest {
 
     @Test
     public void TestViews() {
-
-        onData(withId(R.id.tv_date)).inAdapterView(withId(R.id.rv_transaction)).atPosition(0).check(matches(isDisplayed()));
-        onData(withId(R.id.tv_type)).inAdapterView(withId(R.id.rv_transaction)).atPosition(0)
+        onView(withRecyclerView(R.id.rv_transaction).atPositionOnView(0, R.id.tv_date))
                 .check(matches(isDisplayed()));
-        onData(withId(R.id.tv_amount)).inAdapterView(withId(R.id.rv_transaction)).atPosition(0)
+        onView(withRecyclerView(R.id.rv_transaction).atPositionOnView(0, R.id.tv_amount))
                 .check(matches(isDisplayed()));
-        onData(withId(R.id.tv_description)).inAdapterView(withId(R.id.rv_transaction)).atPosition(0)
+        onView(withRecyclerView(R.id.rv_transaction).atPositionOnView(0, R.id.tv_description))
+                .check(matches(isDisplayed()));
+        onView(withRecyclerView(R.id.rv_transaction).atPositionOnView(0, R.id.tv_type))
                 .check(matches(isDisplayed()));
     }
 
-
+    // Convenience helper
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
+    }
 }
