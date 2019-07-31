@@ -14,17 +14,17 @@ public class TransactionModule {
 
     @Provides
     @Singleton
-    GetUserTransactionsUseCase providesGetUserTransactionsUseCase() {
+    protected GetUserTransactionsUseCase providesGetUserTransactionsUseCase() {
         return new GetUserTransactionsUseCase();
     }
 
     @Provides
-    TransactionViewModel providesTransactionViewModel(GetUserTransactionsUseCase getUserTransactionsUseCase) {
+    protected TransactionViewModel providesTransactionViewModel(GetUserTransactionsUseCase getUserTransactionsUseCase) {
         return new TransactionViewModel(getUserTransactionsUseCase);
     }
 
     @Provides
-    TransactionViewModelFactory ProvidesTransactionViewModelFactory(TransactionViewModel transactionViewModel) {
+    protected TransactionViewModelFactory ProvidesTransactionViewModelFactory(TransactionViewModel transactionViewModel) {
         return new TransactionViewModelFactory(transactionViewModel);
     }
 }

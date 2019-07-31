@@ -35,4 +35,12 @@ public class BaseApplication extends Application {
     public ActivityComponent getActivityComponent() {
         return this.activityComponent;
     }
+
+    public void setApplicationComponent(ApplicationComponent applicationComponent) {
+        this.applicationComponent = applicationComponent;
+    }
+
+    public void setActivityComponent(ActivityComponent activityComponent) {
+        this.activityComponent = activityComponent;
+    }
 }
